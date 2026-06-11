@@ -1,0 +1,32 @@
+# Python
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment
+
+.env
+
+# Node
+
+node_modules/
+.next/
+
+# Mac
+
+.DS_Store
+
+# Logs
+
+*.log
+
+# Chroma
+
+chroma_db/
+
+# IDE
+
+.vscode/
+.idea/
