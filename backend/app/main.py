@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.api.llm import router as llm_router
+from app.api.document import router as document_router
 
 from app.api.health import router as health_router
 
@@ -15,6 +16,7 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(llm_router)
+app.include_router(document_router)
 
 
 @app.get("/")
