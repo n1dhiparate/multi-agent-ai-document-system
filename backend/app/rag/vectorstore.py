@@ -1,3 +1,5 @@
+from fileinput import filename
+
 import chromadb
 from app.rag.embeddings import create_embeddings
 
@@ -9,16 +11,23 @@ collection = client.get_or_create_collection(
     name="documents"
 )
 
-def store_chunks(chunks, embeddings):
+def store_chunks(
+    chunks,
+    embeddings,
+    filename
+):
 
     print(f"Adding {len(chunks)} chunks")
 
     collection.add(
-        documents=chunks,
-        embeddings=embeddings,
-        ids=[str(i) for i in range(len(chunks))]
-    )
-
+    documents=chunks,
+    embeddings=embeddings,
+    ids=[str(i) for i in range(len(chunks))],
+    metadatas=[
+        {"source": filename}
+        for _ in chunks
+    ]
+)
     print("Added successfully")
 
 
