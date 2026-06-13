@@ -3,9 +3,11 @@ from app.services.llm_factory import get_llm
 
 def add_citations(report):
 
-    llm = get_llm()
+    try:
 
-    prompt = f"""
+        llm = get_llm()
+
+        prompt = f"""
 Report:
 
 {report}
@@ -23,6 +25,12 @@ References
 [1] Source Document
 """
 
-    response = llm.invoke(prompt)
+        response = llm.invoke(prompt)
 
-    return response.content
+        return response.content
+
+    except Exception as e:
+
+        print("Citation Agent Error:", str(e))
+
+        return f"Citation generation failed: {str(e)}"

@@ -10,6 +10,8 @@ class Settings(BaseSettings):
 
     MODEL_NAME: str = "gpt-4.1-mini"
 
+    GROQ_API_KEY: str = ""
+
     class Config:
         env_file = ".env"
 

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File,HTTPException
 import tempfile
 import os
 
@@ -21,6 +21,7 @@ from app.agents.planner_agent import create_outline
 from app.agents.writer_agent import write_report
 from app.agents.reviewer_agent import review_report
 from app.agents.citation_agent import add_citations
+from app.graph.workflow import run_workflow
 
 router = APIRouter()
 
@@ -124,33 +125,21 @@ def research(topic: str):
     }
 
 
+from fastapi import HTTPException
+
 @router.get("/generate")
 def generate(topic: str):
 
-    research = research_topic(topic)
+    try:
+        return run_workflow(topic)
 
-    outline = create_outline(
-        topic,
-        research
-    )
+    except Exception as e:
+        print("ERROR:", str(e))
 
-    report = write_report(
-        topic,
-        research,
-        outline
-    )
-
-    review = review_report(report)
-
-    cited_report = add_citations(report)
-
-    return {
-        "research": research,
-        "outline": outline,
-        "report": report,
-        "review": review,
-        "final_report": cited_report
-    }
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to generate report"
+        )
 
 
 @router.post("/upload-pdf")
@@ -174,7 +163,7 @@ async def upload_pdf(file: UploadFile = File(...)):
 
         embeddings = create_embeddings(chunks)
 
-        print("Current count:", collection.count())
+        
 
         store_chunks(
             chunks,
@@ -190,8 +179,13 @@ async def upload_pdf(file: UploadFile = File(...)):
         }
 
     except Exception as e:
-        print("ERROR:", e)
-        raise e
+
+        print("ERROR:", str(e))
+
+        raise HTTPException(
+            status_code=500,
+            detail="PDF processing failed"
+       )
 
     finally:
         os.remove(temp_path)
