@@ -12,6 +12,8 @@ const technologies = ["FastAPI", "LangGraph", "ChromaDB", "Gemini", "Next.js"] a
 
 export function HeroSection() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+const [workflowStage, setWorkflowStage] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -130,6 +132,8 @@ export function HeroSection() {
       <UploadModal
   isOpen={isUploadOpen}
   onClose={() => setIsUploadOpen(false)}
+  isGenerating={isGenerating}
+  setIsGenerating={setIsGenerating}
 />
     </section>
   );

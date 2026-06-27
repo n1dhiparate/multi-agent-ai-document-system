@@ -29,15 +29,18 @@ const secondaryVariant = {
 export const FileUpload = ({
   onChange,
   onContinue,
+  setIsGenerating,
 }: {
   onChange?: (files: File[]) => void;
   onContinue?: () => void;
+  setIsGenerating?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [file, setFile] = useState<File | null>(null);
   const [uploadResult, setUploadResult] = useState<any>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [topic, setTopic] = useState("");
 
   const handleFileChange = (newFiles: File[]) => {
   if (newFiles.length === 0) return;
@@ -106,7 +109,7 @@ const uploadFile = async () => {
   return (
     <div className="w-full" {...getRootProps()}>
       <motion.div
-        onClick={handleClick}
+        onClick={!uploadResult ? handleClick : undefined}
         whileHover="animate"
         className="group/file relative block w-full cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-[#0F1117] p-10 backdrop-blur-xl"
       >
@@ -301,28 +304,48 @@ layoutId="file-upload"
       </div>
 
     </div>
+   <div
+  className="mt-6"
+  onClick={(e) => e.stopPropagation()}
+>
+  <label className="mb-2 block text-sm font-medium text-white">
+    Research Topic
+  </label>
 
-    <div className="mt-8 flex justify-end">
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
+  <input
+    type="text"
+    value={topic}
+    onChange={(e) => setTopic(e.target.value)}
+    placeholder="e.g. Explain Neural Networks"
+    className="w-full rounded-xl border border-white/10 bg-[#0F1117] px-4 py-3 text-white outline-none transition focus:border-[#14B8A6]"
+  />
+</div>
 
-          resetUpload();
+    <div className="mt-8 flex items-center justify-between">
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      resetUpload();
+      handleClick();
+    }}
+    className="text-sm font-medium text-[#14B8A6] transition hover:text-teal-300"
+  >
+    ← Replace PDF
+  </button>
 
-          onContinue?.();
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      setIsGenerating?.(true);
 
-          setTimeout(() => {
-            document.getElementById("workflow")?.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }, 250);
-        }}
-        className="rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200"
-      >
-        Continue →
-      </button>
-    </div>
+      console.log("Generating report for:", topic);
+    }}
+    disabled={!topic.trim()}
+    className="rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
+  >
+    Continue →
+  </button>
+</div>
   </div>
 )}
 

@@ -4,11 +4,15 @@ import { FileUpload } from "@/components/ui/file-upload";
 type UploadModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  isGenerating: boolean;
+  setIsGenerating: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function UploadModal({
   isOpen,
   onClose,
+  isGenerating,
+  setIsGenerating,
 }: UploadModalProps)  {
   if (!isOpen) return null;
 
@@ -30,7 +34,10 @@ export default function UploadModal({
           Upload a PDF to begin the AI document workflow.
         </p>
 
-        <FileUpload onContinue={onClose} />
+        <FileUpload
+  onContinue={onClose}
+  setIsGenerating={setIsGenerating}
+/>
       </div>
     </div>
   );
