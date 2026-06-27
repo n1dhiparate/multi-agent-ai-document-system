@@ -4,15 +4,13 @@ import { FileUpload } from "@/components/ui/file-upload";
 type UploadModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  isGenerating: boolean;
-  setIsGenerating: React.Dispatch<React.SetStateAction<boolean>>;
+  onGenerate: (topic: string) => void;
 };
 
 export default function UploadModal({
   isOpen,
   onClose,
-  isGenerating,
-  setIsGenerating,
+  onGenerate,
 }: UploadModalProps)  {
   if (!isOpen) return null;
 
@@ -36,7 +34,7 @@ export default function UploadModal({
 
         <FileUpload
   onContinue={onClose}
-  setIsGenerating={setIsGenerating}
+  onGenerate={onGenerate}
 />
       </div>
     </div>

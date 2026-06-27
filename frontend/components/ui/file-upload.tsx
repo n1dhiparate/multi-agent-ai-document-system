@@ -29,11 +29,11 @@ const secondaryVariant = {
 export const FileUpload = ({
   onChange,
   onContinue,
-  setIsGenerating,
+  onGenerate,
 }: {
   onChange?: (files: File[]) => void;
   onContinue?: () => void;
-  setIsGenerating?: React.Dispatch<React.SetStateAction<boolean>>;
+  onGenerate?: (topic: string) => void;
 }) => {
   const [file, setFile] = useState<File | null>(null);
   const [uploadResult, setUploadResult] = useState<any>(null);
@@ -335,11 +335,10 @@ layoutId="file-upload"
 
   <button
     onClick={(e) => {
-      e.stopPropagation();
-      setIsGenerating?.(true);
+  e.stopPropagation();
 
-      console.log("Generating report for:", topic);
-    }}
+  onGenerate?.(topic);
+}}
     disabled={!topic.trim()}
     className="rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
   >

@@ -50,7 +50,15 @@ const agentSteps: readonly AgentStep[] = [
   },
 ] as const;
 
-export function AgentWorkflowSection() {
+type AgentWorkflowSectionProps = {
+  isGenerating: boolean;
+  workflowStage: number;
+};
+
+export function AgentWorkflowSection({
+  isGenerating,
+  workflowStage,
+}: AgentWorkflowSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const agentRefs = useRef<Array<HTMLLIElement | null>>([]);
   const lineRefs = useRef<Array<HTMLDivElement | null>>([]);

@@ -8,18 +8,30 @@ import AnimatedButton from "@/components/AnimatedButton";
 import UploadModal from "@/components/UploadModal";
 
 const technologies = ["FastAPI", "LangGraph", "ChromaDB", "Gemini", "Next.js"] as const;
+type HeroSectionProps = {
+  isGenerating: boolean;
+  setIsGenerating: React.Dispatch<React.SetStateAction<boolean>>;
+  workflowStage: number;
+  setWorkflowStage: React.Dispatch<React.SetStateAction<number>>;
+  onGenerate: (topic: string) => void;
+};
 
-
-export function HeroSection() {
+export function HeroSection({
+  isGenerating,
+  setIsGenerating,
+  workflowStage,
+  setWorkflowStage,
+  onGenerate,
+}: HeroSectionProps) {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
-const [workflowStage, setWorkflowStage] = useState(0);
+  
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
   const techStackRef = useRef<HTMLUListElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
+  
 
   useEffect(() => {
     const context = gsap.context(() => {
@@ -132,8 +144,7 @@ const [workflowStage, setWorkflowStage] = useState(0);
       <UploadModal
   isOpen={isUploadOpen}
   onClose={() => setIsUploadOpen(false)}
-  isGenerating={isGenerating}
-  setIsGenerating={setIsGenerating}
+ onGenerate={onGenerate}
 />
     </section>
   );
