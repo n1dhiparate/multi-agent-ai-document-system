@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { ScrollTrigger, gsap } from "@/lib/gsap";
+import {  gsap } from "@/lib/gsap";
 
 type AgentStep = Readonly<{
   name: string;
@@ -63,72 +63,44 @@ export function AgentWorkflowSection({
   const agentRefs = useRef<Array<HTMLLIElement | null>>([]);
   const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
   const previewRef = useRef<HTMLDivElement>(null);
-  const [activeStep, setActiveStep] = useState(0);
+ 
 
   useEffect(() => {
-    const context = gsap.context(() => {
-      gsap.set(agentRefs.current, { autoAlpha: 0.62, y: 12 });
-      gsap.set(agentRefs.current[0], { autoAlpha: 1, y: 0 });
-      gsap.set(lineRefs.current, { scaleY: 0, transformOrigin: "top center" });
+  agentRefs.current.forEach((card, index) => {
+    if (!card) return;
 
-      const createWorkflowTimeline = (pin: boolean) => {
-        const timeline = gsap.timeline({
-          defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: pin ? "top top" : "top 70%",
-            end: pin ? "+=2500" : "bottom 30%",
-            pin,
-            scrub: 0.6,
-            anticipatePin: 1,
-            onUpdate: ({ progress }) => {
-              const nextStep = Math.min(agentSteps.length - 1, Math.floor(progress * agentSteps.length));
-              setActiveStep(nextStep);
-            },
-          },
-        });
+    gsap.to(card, {
+      autoAlpha: index <= workflowStage ? 1 : 0.6,
+      y: index < workflowStage ? -4 : 0,
+      duration: 0.4,
+    });
+  });
 
-        agentSteps.forEach((_, index) => {
-          const card = agentRefs.current[index];
+  lineRefs.current.forEach((line, index) => {
+    if (!line) return;
 
-          timeline.to(card, { autoAlpha: 1, y: 0, duration: 0.18 }, index);
+    gsap.to(line, {
+      scaleY: index < workflowStage ? 1 : 0,
+      duration: 0.4,
+      transformOrigin: "top center",
+    });
+  });
 
-          if (index > 0) {
-            timeline.to(agentRefs.current[index - 1], { autoAlpha: 0.72, y: -4, duration: 0.18 }, index);
-          }
+  
+}, [workflowStage]);
+  const currentStep = Math.max(
+  0,
+  Math.min(workflowStage - 1, agentSteps.length - 1)
+);
 
-          if (index < lineRefs.current.length) {
-            timeline.to(lineRefs.current[index], { scaleY: 1, duration: 0.72 }, index + 0.16);
-          }
-        });
+const stageIndex = Math.max(
+  0,
+  Math.min(currentStep - 1, agentSteps.length - 1)
+);
 
-        return timeline;
-      };
-
-      const media = gsap.matchMedia();
-
-      media.add("(min-width: 1024px)", () => {
-        const timeline = createWorkflowTimeline(true);
-        return () => timeline.kill();
-      });
-
-      media.add("(max-width: 1023px)", () => {
-        const timeline = createWorkflowTimeline(false);
-        return () => timeline.kill();
-      });
-
-      return () => media.revert();
-    }, sectionRef);
-
-    return () => {
-      context.revert();
-      ScrollTrigger.refresh();
-    };
-  }, []);
-
-  const activeAgent = agentSteps[activeStep];
-  const completedSteps = agentSteps.slice(0, activeStep + 1);
-
+const activeAgent = agentSteps[stageIndex];
+const completedSteps = agentSteps.slice(0, stageIndex + 1);
+console.log("Workflow Stage:", workflowStage);
   return (
     <section
   id="workflow"
@@ -151,8 +123,10 @@ export function AgentWorkflowSection({
 
           <ol className="mt-8 space-y-0">
             {agentSteps.map((agent, index) => {
-              const isActive = activeStep === index;
-              const isComplete = activeStep > index;
+              const stageIndex = currentStep - 1;
+
+const isActive = stageIndex === index;
+const isComplete = stageIndex > index;
 
               return (
                 <li
@@ -217,7 +191,7 @@ export function AgentWorkflowSection({
               <h3 className="mt-2 text-2xl font-semibold text-[#FAFAFA]">{activeAgent.documentTitle}</h3>
             </div>
             <div className="rounded-full border border-[#14B8A6]/25 bg-[#14B8A6]/10 px-3 py-1 text-xs font-medium text-[#14B8A6]">
-              {activeStep + 1} / {agentSteps.length}
+              {stageIndex + 1} / {agentSteps.length}
             </div>
           </div>
 

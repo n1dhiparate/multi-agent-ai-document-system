@@ -1,13 +1,22 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 declare global {
-  var __gsapScrollTriggerRegistered: boolean | undefined;
+  var __gsapPluginsRegistered: boolean | undefined;
 }
 
-if (!globalThis.__gsapScrollTriggerRegistered) {
-  gsap.registerPlugin(ScrollTrigger);
-  globalThis.__gsapScrollTriggerRegistered = true;
+if (!globalThis.__gsapPluginsRegistered) {
+  gsap.registerPlugin(
+    ScrollTrigger,
+    ScrollToPlugin
+  );
+
+  globalThis.__gsapPluginsRegistered = true;
 }
 
-export { gsap, ScrollTrigger };
+export {
+  gsap,
+  ScrollTrigger,
+  ScrollToPlugin,
+};

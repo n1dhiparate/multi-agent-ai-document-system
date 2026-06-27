@@ -32,7 +32,7 @@ export default function UploadModal({
           Upload a PDF to begin the AI document workflow.
         </p>
 
-        <FileUpload
+      <FileUpload
   onContinue={onClose}
   onGenerate={onGenerate}
 />

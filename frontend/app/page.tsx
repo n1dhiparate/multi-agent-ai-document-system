@@ -1,5 +1,5 @@
 "use client";
-
+import { gsap } from "@/lib/gsap";
 import { useState } from "react";
 import { AgentWorkflowSection } from "@/components/AgentWorkflowSection";
 import { HeroSection } from "@/components/HeroSection";
@@ -12,8 +12,18 @@ const [workflowStage, setWorkflowStage] = useState(0);
 const startGeneration = async (topic: string) => {
   try {
     setIsGenerating(true);
-    setWorkflowStage(1);
+setWorkflowStage(0);
 
+setTimeout(() => {
+  gsap.to(window, {
+    duration: 2.2,
+    scrollTo: {
+      y: "#workflow",
+      offsetY: 20,
+    },
+    ease: "power3.inOut",
+  });
+}, 250);
     const response = await fetch(
       `http://localhost:8000/generate?topic=${encodeURIComponent(topic)}`
     );
@@ -26,11 +36,28 @@ const startGeneration = async (topic: string) => {
 
     console.log(data);
 
-    setWorkflowStage(11);
+    // Animate the agents one by one
+    setWorkflowStage(1);
+    await new Promise((r) => setTimeout(r, 1000));
+
+    setWorkflowStage(2);
+    await new Promise((r) => setTimeout(r, 1000));
+
+    setWorkflowStage(3);
+    await new Promise((r) => setTimeout(r, 1000));
+
+    setWorkflowStage(4);
+    await new Promise((r) => setTimeout(r, 1000));
+
+    setWorkflowStage(5);
   } catch (error) {
     console.error(error);
   } finally {
+    setWorkflowStage(5);
+
+setTimeout(() => {
     setIsGenerating(false);
+}, 1500);
   }
 };
   return (

@@ -338,6 +338,8 @@ layoutId="file-upload"
   e.stopPropagation();
 
   onGenerate?.(topic);
+
+  onContinue?.();
 }}
     disabled={!topic.trim()}
     className="rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
