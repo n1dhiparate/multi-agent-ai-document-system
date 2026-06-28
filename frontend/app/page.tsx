@@ -12,54 +12,59 @@ const [workflowStage, setWorkflowStage] = useState(0);
 const startGeneration = async (topic: string) => {
   try {
     setIsGenerating(true);
-setWorkflowStage(0);
+    setWorkflowStage(0);
 
-setTimeout(() => {
-  gsap.to(window, {
-    duration: 2.2,
-    scrollTo: {
-      y: "#workflow",
-      offsetY: 20,
-    },
-    ease: "power3.inOut",
-  });
-}, 250);
-    const response = await fetch(
-      `http://localhost:8000/generate?topic=${encodeURIComponent(topic)}`
-    );
+    setTimeout(() => {
+      gsap.to(window, {
+        duration: 2.2,
+        scrollTo: {
+          y: "#workflow",
+          offsetY: 20,
+        },
+        ease: "power3.inOut",
+      });
+    }, 250);
 
-    if (!response.ok) {
-      throw new Error("Generation failed");
-    }
+    const interval = setInterval(async () => {
+      try {
+        const progressResponse = await fetch("http://localhost:8000/progress");
 
-    const data = await response.json();
+        const progress = await progressResponse.json();
+        console.log(progress);
 
-    console.log(data);
+        setWorkflowStage(progress.stage);
 
-    // Animate the agents one by one
-    setWorkflowStage(1);
-    await new Promise((r) => setTimeout(r, 1000));
+        if (progress.status === "completed") {
+          clearInterval(interval);
+          console.log("Final Report:", progress.report);
+          setIsGenerating(false);
+        }
 
-    setWorkflowStage(2);
-    await new Promise((r) => setTimeout(r, 1000));
+        if (progress.status === "error") {
+          clearInterval(interval);
+          setIsGenerating(false);
+        }
+      } catch (err) {
+        console.error(err);
+        clearInterval(interval);
+        setIsGenerating(false);
+      }
+    }, 500);
 
-    setWorkflowStage(3);
-    await new Promise((r) => setTimeout(r, 1000));
+    fetch(
+  `http://localhost:8000/generate?topic=${encodeURIComponent(topic)}`
+).catch((err) => {
+  console.error(err);
+  clearInterval(interval);
+  setIsGenerating(false);
+});
 
-    setWorkflowStage(4);
-    await new Promise((r) => setTimeout(r, 1000));
-
-    setWorkflowStage(5);
   } catch (error) {
     console.error(error);
-  } finally {
-    setWorkflowStage(5);
-
-setTimeout(() => {
     setIsGenerating(false);
-}, 1500);
   }
-};
+};   // <-- THIS WAS MISSING
+
   return (
     <>
       <HeroSection

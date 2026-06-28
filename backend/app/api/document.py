@@ -1,6 +1,8 @@
 from fastapi import APIRouter, UploadFile, File,HTTPException
+import threading
 import tempfile
 import os
+
 
 from app.rag.embeddings import create_embeddings
 from app.rag.vectorstore import (
@@ -21,7 +23,7 @@ from app.agents.planner_agent import create_outline
 from app.agents.writer_agent import write_report
 from app.agents.reviewer_agent import review_report
 from app.agents.citation_agent import add_citations
-from app.graph.workflow import run_workflow
+from app.graph.workflow import run_workflow, workflow_progress
 
 router = APIRouter()
 
@@ -127,18 +129,32 @@ def research(topic: str):
 
 from fastapi import HTTPException
 
+@router.get("/progress")
+def progress():
+    return workflow_progress
+
 @router.get("/generate")
 def generate(topic: str):
 
     try:
-        return run_workflow(topic)
+        thread = threading.Thread(
+            target=run_workflow,
+            args=(topic,),
+            daemon=True,
+        )
+
+        thread.start()
+
+        return {
+            "message": "Generation started"
+        }
 
     except Exception as e:
         print("ERROR:", str(e))
 
         raise HTTPException(
             status_code=500,
-            detail="Failed to generate report"
+            detail="Failed to start generation"
         )
 
 

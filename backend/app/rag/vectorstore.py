@@ -19,10 +19,16 @@ def store_chunks(
 
     print(f"Adding {len(chunks)} chunks")
 
+    # Remove previous document
+    existing = collection.get()
+
+    if existing["ids"]:
+        collection.delete(ids=existing["ids"])
+
     collection.add(
     documents=chunks,
     embeddings=embeddings,
-    ids=[str(i) for i in range(len(chunks))],
+    ids=[f"{filename}_{i}"for i in range(len(chunks))],
     metadatas=[
         {"source": filename}
         for _ in chunks
@@ -42,7 +48,7 @@ def search_documents(query):
 
     results = collection.query(
         query_embeddings=query_embedding,
-        n_results=3
+        n_results=10
     )
 
     print("Search complete")

@@ -70,10 +70,10 @@ export function AgentWorkflowSection({
     if (!card) return;
 
     gsap.to(card, {
-      autoAlpha: index <= workflowStage ? 1 : 0.6,
-      y: index < workflowStage ? -4 : 0,
-      duration: 0.4,
-    });
+  autoAlpha: index < workflowStage ? 1 : 0.6,
+  y: index < workflowStage ? -4 : 0,
+  duration: 0.4,
+});
   });
 
   lineRefs.current.forEach((line, index) => {
@@ -87,20 +87,15 @@ export function AgentWorkflowSection({
   });
 
   
-}, [workflowStage]);
-  const currentStep = Math.max(
+}, [workflowStage , isGenerating]);
+  const stageIndex = Math.max(
   0,
   Math.min(workflowStage - 1, agentSteps.length - 1)
 );
 
-const stageIndex = Math.max(
-  0,
-  Math.min(currentStep - 1, agentSteps.length - 1)
-);
-
 const activeAgent = agentSteps[stageIndex];
 const completedSteps = agentSteps.slice(0, stageIndex + 1);
-console.log("Workflow Stage:", workflowStage);
+
   return (
     <section
   id="workflow"
@@ -123,10 +118,15 @@ console.log("Workflow Stage:", workflowStage);
 
           <ol className="mt-8 space-y-0">
             {agentSteps.map((agent, index) => {
-              const stageIndex = currentStep - 1;
 
-const isActive = stageIndex === index;
-const isComplete = stageIndex > index;
+const isWorkflowComplete =
+    workflowStage >= 6;
+
+const isActive =
+  !isWorkflowComplete && stageIndex === index;
+
+const isComplete =
+  isWorkflowComplete || stageIndex > index;
 
               return (
                 <li
