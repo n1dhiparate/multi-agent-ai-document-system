@@ -33,7 +33,10 @@ export const FileUpload = ({
 }: {
   onChange?: (files: File[]) => void;
   onContinue?: () => void;
-  onGenerate?: (topic: string) => void;
+  onGenerate?: (
+  topic: string,
+  fileName: string
+) => void;
 }) => {
   const [file, setFile] = useState<File | null>(null);
   const [uploadResult, setUploadResult] = useState<any>(null);
@@ -337,9 +340,12 @@ layoutId="file-upload"
     onClick={(e) => {
   e.stopPropagation();
 
-  onGenerate?.(topic);
+  onGenerate?.(
+  topic,
+  uploadResult.filename
+);
 
-  onContinue?.();
+onContinue?.();
 }}
     disabled={!topic.trim()}
     className="rounded-xl bg-white px-7 py-3 font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"

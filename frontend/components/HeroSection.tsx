@@ -13,7 +13,10 @@ type HeroSectionProps = {
   setIsGenerating: React.Dispatch<React.SetStateAction<boolean>>;
   workflowStage: number;
   setWorkflowStage: React.Dispatch<React.SetStateAction<number>>;
-  onGenerate: (topic: string) => void;
+  onGenerate: (
+  topic: string,
+  fileName: string
+) => void;
 };
 
 export function HeroSection({
@@ -65,6 +68,7 @@ export function HeroSection({
 
   return (
     <section
+    id="hero"
       ref={sectionRef}
       className="relative flex min-h-screen overflow-hidden bg-[#09090B] px-6 py-8 text-[#FAFAFA] sm:px-8 lg:px-12"
     >

@@ -4,7 +4,10 @@ import { FileUpload } from "@/components/ui/file-upload";
 type UploadModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onGenerate: (topic: string) => void;
+  onGenerate: (
+  topic: string,
+  fileName: string
+) => void;
 };
 
 export default function UploadModal({

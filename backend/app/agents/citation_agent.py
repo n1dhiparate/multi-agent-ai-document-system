@@ -29,19 +29,18 @@ Content:
         prompt = f"""
 You are an expert citation assistant for a Retrieval-Augmented Generation (RAG) system.
 
-Your job is to add citation markers to the report using ONLY the retrieved context below.
+Your task is ONLY to insert citation markers into the report.
 
 Rules:
 
 1. Use ONLY the retrieved context.
-2. Never invent books, journals, authors or websites.
-3. Insert citation markers such as [1], [2], [3] wherever appropriate.
-4. Multiple statements from the same source should reuse the same citation number.
-5. At the end create a References section.
-6. The References section must use ONLY the Source values provided in the Retrieved Context.
-Do not invent any additional references.
-7. Do not change the wording of the report unless absolutely necessary.
-8. Preserve all headings and formatting.
+2. Never invent books, journals, websites or authors.
+3. Insert citation markers like [1], [2], [3] wherever appropriate.
+4. Reuse the same citation number whenever information comes from the same source.
+5. Preserve all headings and formatting.
+6. Do NOT rewrite the report unless absolutely necessary.
+7. Do NOT generate a References section.
+8. The References section will be generated automatically.
 
 Retrieved Context:
 
@@ -54,7 +53,44 @@ Report:
 
         response = llm.invoke(prompt)
 
-        return response.content
+        report_with_citations = response.content
+
+        # ---------------------------------------------------
+        # Remove any References section the LLM generated
+        # ---------------------------------------------------
+
+        for heading in [
+            "### References",
+            "## References",
+            "# References",
+            "References",
+        ]:
+            if heading in report_with_citations:
+                report_with_citations = report_with_citations.split(heading)[0]
+                break
+
+        # ---------------------------------------------------
+        # Collect unique document sources
+        # ---------------------------------------------------
+
+        unique_sources = []
+
+        for meta in metadatas:
+            source = meta["source"]
+
+            if source not in unique_sources:
+                unique_sources.append(source)
+
+        # ---------------------------------------------------
+        # Append our own clean References section
+        # ---------------------------------------------------
+
+        report_with_citations += "\n\n### References\n\n"
+
+        for index, source in enumerate(unique_sources, start=1):
+            report_with_citations += f"[{index}] {source}\n"
+
+        return report_with_citations
 
     except Exception as e:
         print("Citation Agent Error:", str(e))

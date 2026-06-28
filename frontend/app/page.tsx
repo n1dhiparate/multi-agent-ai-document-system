@@ -1,15 +1,49 @@
 "use client";
 import { gsap } from "@/lib/gsap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AgentWorkflowSection } from "@/components/AgentWorkflowSection";
 import { HeroSection } from "@/components/HeroSection";
 import { SystemArchitectureSection } from "@/components/SystemArchitectureSection";
+import { ReportViewer } from "@/components/ReportViewer";
 
 
 export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
 const [workflowStage, setWorkflowStage] = useState(0);
-const startGeneration = async (topic: string) => {
+const [report, setReport] = useState("");
+const [fileName, setFileName] = useState("");
+useEffect(() => {
+  if (!report) return;
+
+  gsap.to(window, {
+    duration: 2,
+    scrollTo: {
+      y: "#report-viewer",
+      offsetY: 20,
+    },
+    ease: "power3.inOut",
+  });
+}, [report]);
+const resetGeneration = () => {
+  setReport("");
+  setFileName("");
+  setWorkflowStage(0);
+  setIsGenerating(false);
+
+  gsap.to(window, {
+    duration: 1.5,
+    scrollTo: {
+      y: "#hero",
+      offsetY: 20,
+    },
+    ease: "power3.inOut",
+  });
+};
+const startGeneration = async (
+  topic: string,
+  fileName: string
+) => {
+  setFileName(fileName);
   try {
     setIsGenerating(true);
     setWorkflowStage(0);
@@ -35,10 +69,16 @@ const startGeneration = async (topic: string) => {
         setWorkflowStage(progress.stage);
 
         if (progress.status === "completed") {
-          clearInterval(interval);
-          console.log("Final Report:", progress.report);
-          setIsGenerating(false);
-        }
+  clearInterval(interval);
+
+  console.log("Final Report:", progress.report);
+
+  setReport(progress.report);
+
+  setIsGenerating(false);
+
+ 
+}
 
         if (progress.status === "error") {
           clearInterval(interval);
@@ -78,7 +118,13 @@ const startGeneration = async (topic: string) => {
   isGenerating={isGenerating}
   workflowStage={workflowStage}
 />
-      <SystemArchitectureSection />
+      <ReportViewer
+  report={report}
+  fileName={fileName}
+  onGenerateAnother={resetGeneration}
+/>
+
+<SystemArchitectureSection />
       
     </>
   );
