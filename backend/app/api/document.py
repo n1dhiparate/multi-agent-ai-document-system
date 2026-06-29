@@ -186,13 +186,14 @@ async def upload_pdf(file: UploadFile = File(...)):
             embeddings,
             file.filename
         )
+        results = search_documents("What is this document about?")
 
         return {
-            "filename": file.filename,
-            "total_characters": len(text),
-            "total_chunks": len(chunks),
-            "preview_chunk": chunks[0] if chunks else ""
-        }
+                   "filename": file.filename,
+                   "total_characters": len(text),
+                   "total_chunks": len(chunks),
+                   "retrieved_chunks": results
+}
 
     except Exception as e:
 
