@@ -10,6 +10,13 @@ def get_llm():
     
 
     provider = settings.MODEL_PROVIDER.lower()
+    print("========== LLM CONFIG ==========")
+    print("Provider:", provider)
+    print("Model:", settings.MODEL_NAME)
+    print("Groq key exists:", bool(settings.GROQ_API_KEY))
+    print("OpenAI key exists:", bool(settings.OPENAI_API_KEY))
+    print("Google key exists:", bool(settings.GOOGLE_API_KEY))
+    print("===============================")
    
 
     if provider == "groq":
