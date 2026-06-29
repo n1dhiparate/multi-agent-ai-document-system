@@ -67,14 +67,14 @@ const startGeneration = async (
         const progressResponse = await fetch(`${API}/progress`);
 
         const progress = await progressResponse.json();
-        console.log(progress);
+      
 
         setWorkflowStage(progress.stage);
 
         if (progress.status === "completed") {
   clearInterval(interval);
 
-  console.log("Final Report:", progress.report);
+  
 
   setReport(progress.report);
 

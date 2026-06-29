@@ -75,7 +75,7 @@ export function ReportViewer({
         <div className="mb-10 flex flex-wrap gap-4">
 
           <button
-  onClick={() => generatePDF(report)}
+  onClick={() => generatePDF(report, fileName)}
   className="rounded-xl border border-[#14B8A6]/30 bg-[#14B8A6]/10 px-6 py-3 text-sm font-medium text-[#14B8A6] transition hover:bg-[#14B8A6]/20"
 >
   Download PDF

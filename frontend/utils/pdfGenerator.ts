@@ -1,17 +1,22 @@
 import { jsPDF } from "jspdf";
 
-export function generatePDF(report: string) {
+export function generatePDF(
+  report: string,
+  fileName: string
+) {
   const doc = new jsPDF({
     unit: "mm",
     format: "a4",
   });
 
   drawHeader(doc);
-  drawMetadata(doc);
+  drawMetadata(doc, fileName);
   renderReport(doc, report);
   addFooter(doc);
 
-  doc.save("AI_Research_Report.pdf");
+  const cleanName = fileName.replace(/\.pdf$/i, "");
+
+doc.save(`${cleanName}_AI_Report.pdf`);
 }
 
 function drawHeader(doc: jsPDF) {
@@ -36,7 +41,10 @@ function drawHeader(doc: jsPDF) {
   doc.setTextColor(0);
 }
 
-function drawMetadata(doc: jsPDF) {
+function drawMetadata(
+  doc: jsPDF,
+  fileName: string
+) {
   const today = new Date().toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
@@ -57,7 +65,9 @@ function drawMetadata(doc: jsPDF) {
   doc.setFont("helvetica", "normal");
 
   doc.text("Completed", 20, y);
-  doc.text("Uploaded PDF", 80, y);
+  const cleanName = fileName.replace(/\.pdf$/i, "");
+
+doc.text(cleanName, 80, y);
   doc.text(today, 145, y);
 
   doc.setDrawColor(220);
