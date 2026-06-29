@@ -10,9 +10,7 @@ def get_llm():
     
 
     provider = settings.MODEL_PROVIDER.lower()
-    print("Provider:", settings.MODEL_PROVIDER)
-    print("Model:", settings.MODEL_NAME)
-    print("Groq Key:", settings.GROQ_API_KEY[:12] + "...")
+   
 
     if provider == "groq":
         return ChatGroq(

@@ -17,5 +17,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-print("MODEL_PROVIDER:", settings.MODEL_PROVIDER)
-print("GROQ:", settings.GROQ_API_KEY)
