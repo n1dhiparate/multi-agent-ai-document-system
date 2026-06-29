@@ -18,6 +18,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "https://multi-agent-ai-document-system.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
