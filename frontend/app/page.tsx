@@ -5,6 +5,7 @@ import { AgentWorkflowSection } from "@/components/AgentWorkflowSection";
 import { HeroSection } from "@/components/HeroSection";
 import { SystemArchitectureSection } from "@/components/SystemArchitectureSection";
 import { ReportViewer } from "@/components/ReportViewer";
+import { WelcomeModal } from "@/components/WelcomeModal";
 
 
 export default function Home() {
@@ -12,9 +13,17 @@ export default function Home() {
 const [workflowStage, setWorkflowStage] = useState(0);
 const [report, setReport] = useState("");
 const [fileName, setFileName] = useState("");
+const [showWelcome, setShowWelcome] = useState(false);
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "http://localhost:8000";
+
+  useEffect(() => {
+  if (!sessionStorage.getItem("welcome")) {
+    setShowWelcome(true);
+  }
+}, []);
+
 useEffect(() => {
   if (!report) return;
 
@@ -108,6 +117,13 @@ const startGeneration = async (
 
   return (
     <>
+    <WelcomeModal
+    open={showWelcome}
+    onClose={() => {
+      sessionStorage.setItem("welcome", "true");
+      setShowWelcome(false);
+    }}
+  />
       <HeroSection
   isGenerating={isGenerating}
   setIsGenerating={setIsGenerating}
