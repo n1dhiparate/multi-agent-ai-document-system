@@ -9,6 +9,7 @@ sentence-transformers
 langchain
 langgraph
 langchain-groq
+langchain-text-splitters
 
 langchain-openai
 langchain-google-genai
