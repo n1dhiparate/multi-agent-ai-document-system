@@ -49,11 +49,7 @@ Question:
 def research_topic(topic):
 
     try:
-        docs = search_documents(topic)
-
-        context = "\n".join(
-            docs["documents"][0]
-        )
+        context = retrieve_context(topic)
 
         llm = get_llm()
 
