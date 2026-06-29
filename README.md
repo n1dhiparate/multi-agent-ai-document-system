@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 Multi-Agent AI Research Assistant
+# 🤖  Multi-Agent AI Document Research Assistant
 
 ### A full-stack Retrieval-Augmented Generation (RAG) application that transforms PDF documents into structured, citation-aware research reports through a collaborative multi-agent AI workflow.
 
@@ -41,8 +41,9 @@
 A complete walkthrough of the application is included in the repository.
 
 📥 **Demo Video**
+A 90-second walkthrough demonstrating the complete workflow from PDF upload to AI-generated report.
 
-`docs/demo/multi-agent-ai-document-system-demo.mp4`
+📥 docs/demo/multi-agent-ai-document-system-demo.mp4
 
 ---
 
@@ -609,7 +610,7 @@ A big thank you to the open-source community for building and maintaining these 
 
 ## Nidhi Parate
 
-**B.Tech Information Technology Student**
+**B.Tech Information Technology Student | AI & Full-Stack Developer**
 
 I'm passionate about building intelligent software systems that combine AI, modern web technologies, and thoughtful user experiences. My interests include Retrieval-Augmented Generation (RAG), AI Agents, Full-Stack Development, and Developer Tools.
 
