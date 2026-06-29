@@ -1,69 +1,97 @@
-#  Multi-Agent AI Document System
-
-> Transform PDFs into structured, citation-backed research reports using a Retrieval-Augmented Generation (RAG) pipeline orchestrated by specialized AI agents.
-
 <div align="center">
+
+# 🤖 Multi-Agent AI Document System
+
+### An AI-powered document intelligence platform that transforms PDF documents into structured, citation-aware research reports using a Multi-Agent Retrieval-Augmented Generation (RAG) pipeline.
+
+<p align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react)
-![LangGraph](https://img.shields.io/badge/LangGraph-Agent%20Orchestration-orange?style=for-the-badge)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![LangChain](https://img.shields.io/badge/LangChain-RAG-success?style=for-the-badge)
-![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Database-purple?style=for-the-badge)
-![Gemini](https://img.shields.io/badge/Gemini-LLM-4285F4?style=for-the-badge)
+![LangGraph](https://img.shields.io/badge/LangGraph-Multi--Agent-orange?style=for-the-badge)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_DB-purple?style=for-the-badge)
+![SentenceTransformers](https://img.shields.io/badge/SentenceTransformers-Embeddings-blue?style=for-the-badge)
+![Groq](https://img.shields.io/badge/Groq-Llama_3-red?style=for-the-badge)
 
-</div>
+</p>
 
-<div align="center">
-
-*A modern AI document intelligence platform that demonstrates how multiple specialized AI agents can collaborate to analyze, reason over, and generate professional reports from unstructured PDF documents.*
+*A modern full-stack AI application that demonstrates how multiple specialized AI agents collaborate to retrieve knowledge, reason over documents, generate structured reports, review content, and automatically produce citation-backed outputs.*
 
 </div>
 
 ---
 
-## 🎥 Demo
+# 🌐 Live Demo
 
-> **📹 Demo Video**
+| Service | Link |
+|----------|------|
+| **🎨 Frontend (Portfolio)** | https://nidhi-parate-portfolio.vercel.app/ |
+| **⚙️ Backend API** | https://multi-agent-ai-document-system-production.up.railway.app/ |
 
-<TODO: Add Demo GIF>
-
-or
-
-[![Watch Demo](docs/demo/thumbnail.png)](<TODO: Demo Link>)
+> **Note:** The backend is deployed on Railway's free tier and uses the free Groq API. During peak usage, report generation may occasionally be delayed or temporarily rate-limited.
 
 ---
 
-## 🖼️ Screenshots
+# 🎥 Demo
 
-### Landing Page
+The complete project walkthrough is included in this repository.
+
+📥 **Download the demo video**
+
+[`docs/demo/multi-agent-ai-document-system-demo.mp4`](docs/demo/multi-agent-ai-document-system-demo.mp4)
+
+---
+
+# 📸 Project Preview
+
+## Landing Page
 
 ![](docs/images/landing-page.png)
 
-### Upload PDF
+---
+
+## Welcome Modal
+
+![](docs/images/welcome-modal.png)
+
+---
+
+## Upload PDF
 
 ![](docs/images/pdf-upload.png)
 
-### Knowledge Base Updated
+---
+
+## Knowledge Base Updated
 
 ![](docs/images/knowledge-base-updated.png)
 
-### Multi-Agent Workflow
+---
+
+## Multi-Agent Workflow
 
 ![](docs/images/workflow-step-1.png)
 
 ![](docs/images/workflow-step-2.png)
 
-### Generated Report
+---
+
+## Generated Research Report
 
 ![](docs/images/generated-report.png)
 
-### Downloaded PDF
+---
+
+## Downloadable PDF Report
 
 ![](docs/images/downloaded-report.png)
 
-### System Architecture
+---
+
+## System Architecture
 
 ![](docs/images/system-architecture.png)
 
@@ -71,33 +99,39 @@ or
 
 # 📖 Overview
 
-Large Language Models are excellent at generating text, but a single prompt often struggles with long documents, structured reasoning, and producing consistently organized outputs.
+Traditional Large Language Model (LLM) applications often rely on a single prompt to analyze entire documents. While this works for simple tasks, it becomes increasingly unreliable as documents grow larger, making it difficult to maintain context, produce consistent structure, and explain the reasoning process.
 
-This project explores a **multi-agent approach** to document intelligence by combining **Retrieval-Augmented Generation (RAG)** with **specialized AI agents**, where each agent is responsible for a distinct stage of the report generation process.
+This project explores a **Multi-Agent Retrieval-Augmented Generation (RAG)** architecture that decomposes document understanding into specialized AI agents. Rather than assigning every responsibility to a single model, each agent focuses on one stage of the workflow—research, planning, writing, reviewing, or citation generation—while sharing contextual information retrieved from a semantic knowledge base.
 
-Instead of relying on one monolithic LLM call, the system first builds a semantic knowledge base from an uploaded PDF using embeddings and a vector database. Relevant context is then retrieved and passed through a LangGraph-orchestrated workflow consisting of dedicated Research, Planner, Writer, Reviewer, and Citation agents.
+When a PDF is uploaded, the application:
 
-The result is a transparent, modular pipeline that produces structured, citation-aware reports while making every stage of the reasoning process visible through an interactive web interface.
+- extracts its text,
+- generates semantic embeddings using Sentence Transformers,
+- stores those embeddings in ChromaDB,
+- retrieves the most relevant document chunks through semantic search,
+- orchestrates multiple AI agents using LangGraph,
+- and produces a structured, citation-aware research report grounded in the uploaded document.
 
-This project was built to demonstrate practical applications of:
+Beyond document summarization, the project demonstrates several modern AI engineering concepts, including:
 
-- Multi-Agent AI Systems
-- Retrieval-Augmented Generation (RAG)
-- Semantic Search
-- Vector Databases
-- LLM Workflow Orchestration
-- Modern Full-Stack AI Application Development
+- 🤖 Multi-Agent AI Systems
+- 📚 Retrieval-Augmented Generation (RAG)
+- 🔎 Semantic Search
+- 🧠 Vector Databases
+- 🔗 AI Workflow Orchestration
+- ⚡ Full-Stack AI Application Development
+- 🎨 Interactive Workflow Visualization
 
 ---
 
-## 🎯 Real World Use Cases
+# 🎯 Potential Use Cases
 
-- 📄 Research paper summarization
+- 📄 Research paper analysis
 - 📚 Study guide generation
-- 🏢 Internal company knowledge assistants
-- ⚖️ Legal document analysis
-- 📑 Technical documentation generation
-- 📊 Business report creation
+- 🏢 Enterprise knowledge assistants
+- 📑 Technical documentation
+- ⚖️ Legal document summarization
+- 📊 Business intelligence reports
 - 📖 Policy & compliance review
 - 🎓 Educational content generation
 
@@ -107,50 +141,34 @@ This project was built to demonstrate practical applications of:
 
 ## Core Functionality
 
-- ✅ Upload and process PDF documents
-- ✅ Automatic text extraction using PyPDF
-- ✅ Intelligent document chunking for semantic retrieval
-- ✅ Local embedding generation using Sentence Transformers
-- ✅ Persistent vector storage with ChromaDB
-- ✅ Retrieval-Augmented Generation (RAG)
-- ✅ Multi-Agent orchestration using LangGraph
-- ✅ Structured report generation
-- ✅ Automatic citation generation
-- ✅ Professional PDF export
-- ✅ Copy report to clipboard
-- ✅ Generate multiple reports from uploaded knowledge base
+- 📄 Upload and process PDF documents
+- 🧩 Automatic text extraction
+- ✂️ Intelligent semantic chunking
+- 🧠 Embedding generation using Sentence Transformers
+- 🗄️ Persistent vector storage with ChromaDB
+- 🔍 Semantic document retrieval
+- 🤖 Multi-Agent report generation
+- 📝 Citation-aware research reports
+- 📑 Professional PDF export
+- 📋 One-click report copying
 
 ---
 
-## User Experience
+## Interactive Experience
 
-- ✅ Modern SaaS-inspired interface
-- ✅ Interactive AI workflow visualization
-- ✅ Live workflow progress tracking
-- ✅ Beautiful markdown report rendering
-- ✅ Responsive layout
-- ✅ Smooth GSAP animations
-- ✅ Welcome modal for first-time visitors
-- ✅ Clean architecture visualization
-- ✅ Download generated reports as PDF
-
----
-
-## AI Capabilities
-
-- 🧠 Semantic document search
-- 📚 Context-aware report generation
-- 🔍 Retrieval-based question answering
-- 📝 AI-generated report outlining
-- ✍️ Technical writing
-- 🧐 AI-powered review and refinement
-- 📖 Automatic citation insertion
+- ⚡ Live workflow progress visualization
+- 🎯 Dedicated AI agent pipeline
+- 🎨 Modern responsive interface
+- ✨ Smooth GSAP-powered animations
+- 📊 Interactive system architecture diagram
+- 🔄 Generate multiple reports from the same knowledge base
+- 🎉 Welcome modal for first-time visitors
 
 ---
 
 # 🏗️ System Architecture
 
-The application follows a modular full-stack architecture where the frontend communicates with a FastAPI backend that orchestrates a Retrieval-Augmented Generation (RAG) pipeline using LangGraph. Instead of a single AI model handling every task, specialized agents collaborate to generate higher-quality reports.
+The application follows a modular architecture where a Next.js frontend communicates with a FastAPI backend responsible for orchestrating the Retrieval-Augmented Generation (RAG) workflow. Instead of relying on a single LLM call, the system delegates responsibilities to multiple specialized AI agents using LangGraph.
 
 ```mermaid
 flowchart LR
@@ -163,15 +181,15 @@ C[PDF Upload]
 
 D[Text Extraction]
 
-E[Chunking]
+E[Semantic Chunking]
 
-F[Sentence Transformer Embeddings]
+F[SentenceTransformer Embeddings]
 
-G[ChromaDB]
+G[(ChromaDB)]
 
 H[Retriever]
 
-I[LangGraph]
+I[LangGraph Workflow]
 
 J[Research Agent]
 
@@ -186,57 +204,40 @@ N[Citation Agent]
 O[Generated Report]
 
 A --> B
-
 B --> C
-
 C --> D
-
 D --> E
-
 E --> F
-
 F --> G
-
 G --> H
-
 H --> I
-
 I --> J
-
 J --> K
-
 K --> L
-
 L --> M
-
 M --> N
-
 N --> O
-```
 
 ---
 
 # 🔄 End-to-End Workflow
 
-When a user uploads a PDF, the system performs the following sequence of operations:
+From the moment a document is uploaded, the application follows a structured processing pipeline.
 
-```text
+
 📄 Upload PDF
         │
         ▼
-Extract Raw Text
+Extract Text
         │
         ▼
-Split Into Semantic Chunks
+Split into Semantic Chunks
         │
         ▼
 Generate Embeddings
         │
         ▼
-Store Vectors in ChromaDB
-        │
-        ▼
-User Enters Query
+Store in ChromaDB
         │
         ▼
 Retrieve Relevant Context
@@ -257,254 +258,246 @@ Reviewer Agent
 Citation Agent
         │
         ▼
-Professional AI Report
-```
+📑 Final Research Report
 
 ---
 
-## Why a Multi-Agent Workflow?
+# 🤖 Why a Multi-Agent Workflow?
 
-Rather than asking a single LLM to perform every task, responsibilities are separated into dedicated AI agents. Each agent focuses on one objective, making the overall pipeline easier to understand, extend, and maintain.
+Most AI document assistants rely on a single prompt to retrieve information and generate a response. While simple, this approach makes it difficult to maintain structure, verify outputs, or extend the system with additional capabilities.
 
-| Stage | Responsibility |
+This project adopts a **specialized multi-agent architecture**, where each agent is responsible for one clearly defined task. The output of one agent becomes the input for the next, creating a modular pipeline that is easier to understand, debug, and improve.
+
+| Agent | Responsibility |
 |--------|----------------|
-| Research | Retrieves and summarizes relevant document context |
-| Planner | Creates a structured outline before writing |
-| Writer | Produces the initial report draft |
-| Reviewer | Improves clarity, coherence, and quality |
-| Citation | Adds citation markers and generates references |
+| 🔍 Research Agent | Retrieves and summarizes relevant document context |
+| 📝 Planner Agent | Creates a structured outline for the report |
+| ✍️ Writer Agent | Generates the first draft |
+| 🧐 Reviewer Agent | Improves clarity, consistency, and readability |
+| 📚 Citation Agent | Inserts citation markers and builds the references section |
 
-This separation of responsibilities mirrors real-world collaborative workflows and demonstrates how agent-based systems can improve modularity over single-prompt approaches.
-
----
-
-# 🤖 Multi-Agent System
-
-Unlike traditional AI applications that rely on a single prompt, this project uses a **specialized multi-agent architecture**. Each agent is responsible for one stage of the reasoning process, resulting in a more modular, maintainable, and explainable workflow.
+This separation of concerns mirrors collaborative engineering workflows and makes the system significantly more maintainable than a single-prompt solution.
 
 ---
 
-## Agent Responsibilities
 
-| Agent | Purpose | Input | Output |
-|--------|---------|-------|--------|
-| 🔍 Research Agent | Retrieves relevant information from the knowledge base | User topic + retrieved context | Research notes |
-| 📝 Planner Agent | Organizes the research into a logical structure | Topic + research summary | Report outline |
-| ✍️ Writer Agent | Generates the first draft of the report | Outline + research | Complete report |
-| 🧐 Reviewer Agent | Improves readability, consistency, and overall quality | Draft report | Reviewed report |
-| 📚 Citation Agent | Adds citation markers and generates a references section | Reviewed report + retrieved sources | Final report with citations |
+# 🧠 Retrieval-Augmented Generation (RAG)
 
----
+At the core of this project is a **Retrieval-Augmented Generation (RAG)** pipeline.
 
-## Agent Workflow
+Rather than sending the entire PDF directly to a Large Language Model, the system first converts the document into a searchable semantic knowledge base. When the user requests a report, only the most relevant document chunks are retrieved and provided as context to the AI agents.
 
-```mermaid
-flowchart LR
-
-A[Research]
-
-B[Planner]
-
-C[Writer]
-
-D[Reviewer]
-
-E[Citation]
-
-A --> B --> C --> D --> E
-```
-
-Each agent performs a single well-defined responsibility, making the system easier to debug, improve, and extend compared to a monolithic prompt.
-
----
-
-# 📚 Retrieval-Augmented Generation (RAG)
-
-The application follows a Retrieval-Augmented Generation (RAG) pipeline to ensure responses are grounded in the uploaded document rather than relying solely on the language model's pretrained knowledge.
+This approach significantly improves factual accuracy, reduces hallucinations, and allows the application to scale to larger documents while keeping prompts concise.
 
 ```text
-PDF Document
-      │
-      ▼
-Text Extraction
-      │
-      ▼
-Chunking
-      │
-      ▼
-SentenceTransformer Embeddings
-      │
-      ▼
-ChromaDB Vector Store
-      │
-      ▼
-Semantic Retrieval
-      │
-      ▼
-Relevant Context
-      │
-      ▼
-Multi-Agent Workflow
-      │
-      ▼
-Final Report
-```
+                PDF Document
+                     │
+                     ▼
+            Text Extraction (PyPDF)
+                     │
+                     ▼
+           Semantic Text Chunking
+                     │
+                     ▼
+      SentenceTransformer Embeddings
+                     │
+                     ▼
+              ChromaDB Vector Store
+                     │
+                     ▼
+            Semantic Similarity Search
+                     │
+                     ▼
+            Relevant Context Retrieval
+                     │
+                     ▼
+          LangGraph Multi-Agent Pipeline
+                     │
+                     ▼
+      Citation-Aware Research Report
 
-Instead of sending the entire PDF to the LLM, only the most semantically relevant document chunks are retrieved and used as context. This approach reduces hallucinations, improves response quality, and scales more effectively to larger documents.
 
 ---
 
-# 💻 Tech Stack
+# 💻 Technology Stack
 
 | Category | Technologies |
 |-----------|--------------|
-| **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS, GSAP, Framer Motion |
+| **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS |
+| **Animations** | GSAP, Framer Motion |
 | **Backend** | FastAPI, Python |
 | **AI Frameworks** | LangChain, LangGraph |
-| **LLM** | Groq (Llama 3.1), Google Gemini *(supported)* |
+| **LLM Provider** | Groq (Llama 3.1) |
 | **Embeddings** | Sentence Transformers (`all-MiniLM-L6-v2`) |
 | **Vector Database** | ChromaDB |
 | **Document Processing** | PyPDF |
-| **PDF Export** | jsPDF |
+| **PDF Generation** | jsPDF |
 | **Deployment** | Vercel (Frontend), Railway (Backend) |
 | **Version Control** | Git & GitHub |
 
 ---
 
-# 🏛️ Design Decisions
+# 🏛️ Engineering Decisions
 
-Rather than selecting technologies solely based on popularity, each major component was chosen to address a specific architectural requirement.
-
-### FastAPI
-
-Chosen for its lightweight architecture, asynchronous request handling, automatic OpenAPI documentation, and excellent compatibility with AI workloads.
+Every major technology used in this project was selected to solve a specific architectural problem rather than simply following popular trends.
 
 ---
 
-### Next.js
+## FastAPI
 
-Provides a modern React-based frontend with excellent performance, component organization, and deployment through Vercel.
-
----
-
-### LangGraph
-
-LangGraph enables explicit orchestration of multiple AI agents, making complex workflows easier to visualize, maintain, and extend than a single prompt-based approach.
+FastAPI provides lightweight asynchronous APIs with automatic validation, excellent developer experience, and built-in OpenAPI documentation. It integrates naturally with AI workflows and offers high performance for backend services.
 
 ---
 
-### ChromaDB
+## Next.js
 
-Acts as the semantic memory of the system by storing vector embeddings locally, enabling fast similarity search without relying on external vector database services.
-
----
-
-### Sentence Transformers
-
-The `all-MiniLM-L6-v2` embedding model provides an excellent balance between embedding quality, inference speed, and resource usage for semantic search tasks.
+Next.js was chosen to build a responsive frontend capable of presenting complex AI workflows through an interactive user interface while remaining easy to deploy on Vercel.
 
 ---
 
-### Groq API
+## LangGraph
 
-Groq provides extremely low-latency inference for Llama models, making it well suited for interactive AI applications. The project is designed so the LLM provider can be swapped through configuration without changing the application architecture.
+Instead of chaining prompts together manually, LangGraph provides explicit workflow orchestration.
 
----
-
-### GSAP
-
-GSAP was selected to create smooth workflow animations and transitions, improving the overall user experience while visually demonstrating the progress of each AI agent.
+Each AI agent performs one clearly defined responsibility, making the system easier to understand, debug, and extend.
 
 ---
 
-### Modular Agent Architecture
+## LangChain
 
-Instead of building a single large function responsible for the entire report generation process, each stage was isolated into an independent module. This improves maintainability, readability, testing, and future extensibility.
+LangChain simplifies interactions with language models and provides abstractions for prompts, document retrieval, and model providers while remaining flexible enough to swap providers with minimal changes.
+
+---
+
+## ChromaDB
+
+ChromaDB acts as the semantic memory of the application.
+
+Rather than repeatedly processing uploaded PDFs, embeddings are stored locally and retrieved through vector similarity search, enabling fast and context-aware responses.
+
+---
+
+## Sentence Transformers
+
+The `all-MiniLM-L6-v2` embedding model was selected because it provides a strong balance between retrieval quality, inference speed, and memory efficiency, making it well suited for semantic document search.
+
+---
+
+## Groq
+
+Groq offers extremely fast inference for open-weight language models, making it ideal for an interactive application where users expect quick report generation.
+
+The application also abstracts model creation through an LLM Factory, allowing providers such as Gemini or OpenAI to be integrated with minimal code changes.
+
+---
+
+## Modular Multi-Agent Architecture
+
+Instead of building a single, large report-generation function, the system separates responsibilities into independent AI agents.
+
+This design improves:
+
+- Maintainability
+- Readability
+- Debugging
+- Extensibility
+- Reusability
+
+Adding new capabilities—such as fact-checking, summarization, translation, or evaluation agents—can be achieved without redesigning the existing workflow.
 
 ---
 
 # 📂 Project Structure
 
 ```text
-multi-agent-ai-document-system/
+multi-agent-ai-document-system
 │
-├── backend/
-│   ├── app/
-│   │   ├── agents/
-│   │   │   ├── research_agent.py
-│   │   │   ├── planner_agent.py
-│   │   │   ├── writer_agent.py
-│   │   │   ├── reviewer_agent.py
-│   │   │   └── citation_agent.py
-│   │   │
-│   │   ├── api/
-│   │   │   ├── document.py
-│   │   │   ├── llm.py
-│   │   │   └── health.py
-│   │   │
-│   │   ├── core/
-│   │   ├── graph/
-│   │   ├── rag/
-│   │   ├── services/
+├── backend
+│   ├── app
+│   │   ├── agents
+│   │   ├── api
+│   │   ├── core
+│   │   ├── graph
+│   │   ├── rag
+│   │   ├── services
 │   │   └── main.py
 │   │
 │   ├── requirements.txt
 │   └── .env.example
 │
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   ├── utils/
-│   ├── public/
+├── frontend
+│   ├── app
+│   ├── components
+│   ├── lib
+│   ├── public
+│   ├── utils
 │   └── package.json
 │
-├── docs/
-│   ├── screenshots/
-│   └── images/
+├── docs
+│   ├── demo
+│   └── images
 │
+├── LICENSE
 └── README.md
-```
+
 
 ---
 
-# ⚙️ Installation
+````md
+# 🚀 Getting Started
 
-## 1. Clone the Repository
+## Prerequisites
+
+Before running the project, ensure you have the following installed:
+
+- Python 3.11+
+- Node.js 20+
+- npm
+- Git
+
+You'll also need a Groq API key (or another supported LLM provider).
+
+---
+
+## Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/multi-agent-ai-document-system.git
+git clone https://github.com/n1dhiparate/multi-agent-ai-document-system.git
 
 cd multi-agent-ai-document-system
 ```
 
----
 
-## 2. Backend Setup
+
+## Backend Setup
+
+Navigate to the backend directory.
 
 ```bash
 cd backend
+```
 
+Create a virtual environment.
+
+```bash
 python -m venv venv
 ```
 
-### Activate Virtual Environment
+Activate it.
 
-**Windows**
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-**macOS / Linux**
+### macOS/Linux
 
 ```bash
 source venv/bin/activate
 ```
 
----
-
-### Install Dependencies
+Install dependencies.
 
 ```bash
 pip install -r requirements.txt
@@ -512,19 +505,21 @@ pip install -r requirements.txt
 
 ---
 
-## 3. Frontend Setup
+## Frontend Setup
+
+Open a new terminal.
 
 ```bash
-cd ../frontend
+cd frontend
 
 npm install
 ```
 
 ---
 
-## 4. Configure Environment Variables
+# 🔑 Environment Variables
 
-Create a `.env` file inside the backend directory.
+## Backend (`backend/.env`)
 
 ```env
 MODEL_PROVIDER=groq
@@ -534,7 +529,9 @@ MODEL_NAME=llama-3.1-8b-instant
 GROQ_API_KEY=your_api_key
 ```
 
-Create a `.env.local` file inside the frontend directory.
+---
+
+## Frontend (`frontend/.env.local`)
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8000
@@ -542,21 +539,21 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ---
 
-## 5. Start Backend
+# ▶️ Running the Application
+
+Start the backend.
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
----
-
-## 6. Start Frontend
+Start the frontend.
 
 ```bash
 npm run dev
 ```
 
-Visit
+Open your browser:
 
 ```
 http://localhost:3000
@@ -564,44 +561,12 @@ http://localhost:3000
 
 ---
 
-# 🔑 Environment Variables
+# 🌐 Deployment
 
-## Backend
-
-| Variable | Description |
-|-----------|-------------|
-| `MODEL_PROVIDER` | LLM provider (Groq / Gemini / OpenAI) |
-| `MODEL_NAME` | LLM model name |
-| `GROQ_API_KEY` | Groq API Key |
-| `GOOGLE_API_KEY` | Gemini API Key *(optional)* |
-| `OPENAI_API_KEY` | OpenAI API Key *(optional)* |
-
----
-
-## Frontend
-
-| Variable | Description |
-|-----------|-------------|
-| `NEXT_PUBLIC_API_URL` | Backend API URL |
-
----
-
-# 🚀 Deployment
-
-| Service | Platform |
-|----------|----------|
+| Component | Platform |
+|-----------|----------|
 | Frontend | Vercel |
 | Backend | Railway |
-
-### Live Demo
-
-**Frontend**
-
->[ https://<YOUR-VERCEL-URL](https://multi-agent-ai-document-system.vercel.app/)>
-
-**Backend API**
-
-> [https://<YOUR-RAILWAY-URL](https://multi-agent-ai-document-system-production.up.railway.app/)>
 
 ---
 
@@ -609,72 +574,85 @@ http://localhost:3000
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| `POST` | `/upload-pdf` | Upload and index a PDF |
-| `GET` | `/generate?topic=` | Generate a report |
-| `GET` | `/progress` | Live workflow progress |
-| `GET` | `/ask?question=` | Ask questions about uploaded documents |
-| `GET` | `/search?query=` | Semantic search |
-| `GET` | `/vector-count` | Number of indexed chunks |
-| `GET` | `/research?topic=` | Research Agent |
-| `GET` | `/plan?topic=` | Planner Agent |
-| `GET` | `/report?topic=` | Writer Agent |
-| `GET` | `/review?topic=` | Reviewer Agent |
+| POST | `/upload-pdf` | Upload and process PDF documents |
+| GET | `/generate` | Start report generation |
+| GET | `/progress` | Retrieve live workflow progress |
+| GET | `/search` | Perform semantic search |
+| GET | `/ask` | Ask questions about uploaded documents |
+| GET | `/vector-count` | Number of stored document chunks |
 
 ---
 
 # ⚡ Challenges & Solutions
 
+Building a multi-agent AI application introduced several engineering challenges that required architectural rather than purely implementation-focused solutions.
+
 | Challenge | Solution |
 |------------|----------|
-| Processing long PDF documents | Split documents into semantic chunks before embedding. |
-| Reducing hallucinations | Implemented Retrieval-Augmented Generation using ChromaDB. |
-| Organizing AI reasoning | Replaced a single prompt with a LangGraph-based multi-agent workflow. |
-| Keeping the UI responsive | Executed report generation asynchronously and exposed live workflow progress. |
-| LLM provider flexibility | Centralized model creation through an LLM factory, enabling provider switching with configuration changes only. |
-| Deployment compatibility | Configured the frontend and backend independently for Vercel and Railway, with environment-based API configuration. |
+| Processing long PDF documents efficiently | Split documents into semantic chunks before embedding. |
+| Preventing LLM hallucinations | Implemented Retrieval-Augmented Generation (RAG) using ChromaDB. |
+| Managing multiple AI agents | Used LangGraph to orchestrate a modular workflow instead of a single prompt. |
+| Keeping the interface responsive | Report generation runs asynchronously while the frontend polls workflow progress. |
+| Supporting different LLM providers | Centralized model creation using an LLM Factory to simplify provider switching. |
+| Deployment across multiple services | Configured independent deployments on Railway (backend) and Vercel (frontend) using environment variables. |
 
 ---
 
-# 📈 Performance Considerations
+# 📈 Performance Notes
 
-- Semantic embeddings are computed only during document ingestion.
-- ChromaDB persists vector embeddings for reuse across queries.
-- Only the most relevant chunks are retrieved for each request, minimizing prompt size.
-- The backend reports workflow progress asynchronously, allowing the frontend to display real-time agent execution.
-- The LLM provider is abstracted through a factory pattern, making it easy to switch models without changing business logic.
+The application is designed to minimize unnecessary computation.
 
-> **Note:** This project uses the free tier of the Groq API. During periods of high usage, requests may occasionally be delayed or rate-limited (`HTTP 429`), which is expected behavior for the free service.
+- Embeddings are generated only during document ingestion.
+- ChromaDB persists vector embeddings for future queries.
+- Semantic retrieval limits prompt size by selecting only the most relevant chunks.
+- Workflow progress is exposed through a dedicated endpoint, allowing the frontend to visualize each AI agent in real time.
+- LLM providers are abstracted through a factory pattern, making future integrations straightforward.
+
+> **Note:** The deployed application uses the **free Groq API tier**. During periods of high demand, requests may occasionally be delayed or temporarily rate-limited (`HTTP 429`). This is expected behavior and does not affect the application architecture.
 
 ---
 
 # 🛣️ Future Improvements
 
-- [ ] Multi-document collections
-- [ ] User authentication and saved workspaces
-- [ ] Chat with uploaded documents
-- [ ] Streaming report generation
+- [ ] Streaming AI responses
+- [ ] Authentication & user accounts
+- [ ] Multi-document workspaces
+- [ ] Conversational document chat
 - [ ] DOCX export
-- [ ] Report version history
-- [ ] Interactive citation navigation
-- [ ] Docker support
+- [ ] Report history
+- [ ] Interactive citation links
+- [ ] Docker containerization
 - [ ] CI/CD pipeline
-- [ ] Unit and integration tests
-- [ ] Improved mobile responsiveness
-- [ ] Cloud object storage for uploaded PDFs
+- [ ] Automated unit and integration tests
+- [ ] Mobile UI optimization
+- [ ] Cloud storage for uploaded documents
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome!
+Contributions, feature suggestions, and bug reports are always welcome.
 
-If you'd like to improve the project, feel free to fork the repository, create a feature branch, and submit a pull request. Suggestions, bug reports, and discussions are also appreciated.
+If you'd like to contribute:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Open a Pull Request.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
 
 ---
 
 # 🙏 Acknowledgements
 
-This project was built using several excellent open-source technologies:
+This project would not have been possible without the excellent open-source ecosystem.
+
+Special thanks to:
 
 - FastAPI
 - Next.js
@@ -686,16 +664,7 @@ This project was built using several excellent open-source technologies:
 - React
 - Tailwind CSS
 - GSAP
-
-Special thanks to the open-source community for building the tools that make projects like this possible.
-
----
-
-# 📄 License
-
-This project is licensed under the **MIT License**.
-
-See the `LICENSE` file for more information.
+- jsPDF
 
 ---
 
@@ -707,11 +676,16 @@ B.Tech Information Technology Student
 
 Passionate about building AI-powered applications, intelligent developer tools, and modern full-stack systems.
 
-### Connect with me
+### Connect with Me
 
-- **GitHub:** https://github.com/n1dhiparate
-- **LinkedIn:** [<YOUR_LINKEDIN_URL>](https://www.linkedin.com/in/nidhi-parate/)
-- **Portfolio:** [YOUR_PORTFOLIO_URL](https://nidhi-parate-portfolio.vercel.app/)
+- **GitHub**  
+  https://github.com/n1dhiparate
+
+- **LinkedIn**  
+  https://www.linkedin.com/in/nidhi-parate/
+
+- **Portfolio**  
+  https://nidhi-parate-portfolio.vercel.app/
 
 ---
 
@@ -719,6 +693,10 @@ Passionate about building AI-powered applications, intelligent developer tools, 
 
 ### ⭐ If you found this project interesting, consider giving it a star!
 
-Thank you for visiting the repository.
+Thank you for taking the time to explore the project.
 
 </div>
+
+
+
+
