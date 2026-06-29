@@ -44,6 +44,9 @@ export const FileUpload = ({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [topic, setTopic] = useState("");
+  const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:8000";
 
   const handleFileChange = (newFiles: File[]) => {
   if (newFiles.length === 0) return;
@@ -74,10 +77,10 @@ const uploadFile = async () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch("http://localhost:8000/upload-pdf", {
-      method: "POST",
-      body: formData,
-    });
+   const response = await fetch(`${API}/upload-pdf`, {
+  method: "POST",
+  body: formData,
+});;
 
     if (!response.ok) {
       throw new Error("Upload failed");

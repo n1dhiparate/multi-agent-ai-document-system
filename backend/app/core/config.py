@@ -6,11 +6,11 @@ class Settings(BaseSettings):
 
     GOOGLE_API_KEY: str = ""
 
-    MODEL_PROVIDER: str = "openai"
-
-    MODEL_NAME: str = "gpt-4.1-mini"
-
     GROQ_API_KEY: str = ""
+
+    MODEL_PROVIDER: str = "groq"
+
+    MODEL_NAME: str = "llama-3.3-70b-versatile"
 
     class Config:
         env_file = ".env"

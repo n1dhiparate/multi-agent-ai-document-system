@@ -12,6 +12,9 @@ export default function Home() {
 const [workflowStage, setWorkflowStage] = useState(0);
 const [report, setReport] = useState("");
 const [fileName, setFileName] = useState("");
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:8000";
 useEffect(() => {
   if (!report) return;
 
@@ -61,7 +64,7 @@ const startGeneration = async (
 
     const interval = setInterval(async () => {
       try {
-        const progressResponse = await fetch("http://localhost:8000/progress");
+        const progressResponse = await fetch(`${API}/progress`);
 
         const progress = await progressResponse.json();
         console.log(progress);
@@ -91,9 +94,7 @@ const startGeneration = async (
       }
     }, 500);
 
-    fetch(
-  `http://localhost:8000/generate?topic=${encodeURIComponent(topic)}`
-).catch((err) => {
+   fetch(`${API}/generate?topic=${encodeURIComponent(topic)}`).catch((err) => {
   console.error(err);
   clearInterval(interval);
   setIsGenerating(false);
